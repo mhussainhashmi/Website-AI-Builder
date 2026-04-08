@@ -1,0 +1,8 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "bwpK58FkidX3ToGhnetDB"
+uri = "file://artifacts/personal-site/public/about-workspace.png"
+type = "image"
+title = "Midnight coding workspace"

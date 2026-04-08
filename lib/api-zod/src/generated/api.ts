@@ -14,3 +14,27 @@ import * as zod from "zod";
 export const HealthCheckResponse = zod.object({
   status: zod.string(),
 });
+
+/**
+ * @summary Submit a contact message
+ */
+export const SubmitContactBody = zod.object({
+  name: zod.string(),
+  email: zod.string(),
+  message: zod.string(),
+});
+
+/**
+ * @summary List portfolio projects
+ */
+export const ListProjectsResponseItem = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  description: zod.string(),
+  tags: zod.array(zod.string()),
+  liveUrl: zod.string().nullable(),
+  repoUrl: zod.string().nullable(),
+  imageUrl: zod.string().nullable(),
+  featured: zod.boolean(),
+});
+export const ListProjectsResponse = zod.array(ListProjectsResponseItem);
