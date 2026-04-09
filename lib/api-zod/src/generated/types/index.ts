@@ -10,3 +10,4 @@ export * from "./contactFormBody";
 export * from "./contactSubmission";
 export * from "./healthStatus";
 export * from "./project";
+export * from "./projectBody";

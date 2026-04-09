@@ -14,13 +14,14 @@ tags:
     description: Contact form submissions
   - name: projects
     description: Portfolio projects
+  - name: admin
+    description: Admin operations
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -62,6 +63,133 @@ paths:
                 type: array
                 items:
                   $ref: "#/components/schemas/Project"
+
+  /admin/projects:
+    get:
+      operationId: adminListProjects
+      tags: [admin]
+      summary: Admin - list all projects
+      parameters:
+        - in: header
+          name: x-admin-password
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: All projects
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Project"
+        "401":
+          description: Unauthorized
+    post:
+      operationId: adminCreateProject
+      tags: [admin]
+      summary: Admin - create a project
+      parameters:
+        - in: header
+          name: x-admin-password
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectBody"
+      responses:
+        "201":
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "401":
+          description: Unauthorized
+
+  /admin/projects/{id}:
+    patch:
+      operationId: adminUpdateProject
+      tags: [admin]
+      summary: Admin - update a project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: x-admin-password
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProjectBody"
+      responses:
+        "200":
+          description: Updated
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not found
+    delete:
+      operationId: adminDeleteProject
+      tags: [admin]
+      summary: Admin - delete a project
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+        - in: header
+          name: x-admin-password
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: Deleted
+        "401":
+          description: Unauthorized
+        "404":
+          description: Not found
+
+  /admin/contacts:
+    get:
+      operationId: adminListContacts
+      tags: [admin]
+      summary: Admin - list all contact messages
+      parameters:
+        - in: header
+          name: x-admin-password
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: All contact submissions
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ContactSubmission"
+        "401":
+          description: Unauthorized
 
 components:
   schemas:
@@ -107,6 +235,34 @@ components:
         - email
         - message
         - createdAt
+
+    ProjectBody:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        liveUrl:
+          type: string
+          nullable: true
+        repoUrl:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+        featured:
+          type: boolean
+      required:
+        - title
+        - description
+        - tags
+        - featured
 
     Project:
       type: object

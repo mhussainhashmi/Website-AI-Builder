@@ -8,7 +8,6 @@
 import * as zod from "zod";
 
 /**
- * Returns server health status
  * @summary Health check
  */
 export const HealthCheckResponse = zod.object({
@@ -38,3 +37,102 @@ export const ListProjectsResponseItem = zod.object({
   featured: zod.boolean(),
 });
 export const ListProjectsResponse = zod.array(ListProjectsResponseItem);
+
+/**
+ * @summary Admin - list all projects
+ */
+export const AdminListProjectsHeader = zod.object({
+  "x-admin-password": zod.string(),
+});
+
+export const AdminListProjectsResponseItem = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  description: zod.string(),
+  tags: zod.array(zod.string()),
+  liveUrl: zod.string().nullable(),
+  repoUrl: zod.string().nullable(),
+  imageUrl: zod.string().nullable(),
+  featured: zod.boolean(),
+});
+export const AdminListProjectsResponse = zod.array(
+  AdminListProjectsResponseItem,
+);
+
+/**
+ * @summary Admin - create a project
+ */
+export const AdminCreateProjectHeader = zod.object({
+  "x-admin-password": zod.string(),
+});
+
+export const AdminCreateProjectBody = zod.object({
+  title: zod.string(),
+  description: zod.string(),
+  tags: zod.array(zod.string()),
+  liveUrl: zod.string().nullish(),
+  repoUrl: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  featured: zod.boolean(),
+});
+
+/**
+ * @summary Admin - update a project
+ */
+export const AdminUpdateProjectParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const AdminUpdateProjectHeader = zod.object({
+  "x-admin-password": zod.string(),
+});
+
+export const AdminUpdateProjectBody = zod.object({
+  title: zod.string(),
+  description: zod.string(),
+  tags: zod.array(zod.string()),
+  liveUrl: zod.string().nullish(),
+  repoUrl: zod.string().nullish(),
+  imageUrl: zod.string().nullish(),
+  featured: zod.boolean(),
+});
+
+export const AdminUpdateProjectResponse = zod.object({
+  id: zod.number(),
+  title: zod.string(),
+  description: zod.string(),
+  tags: zod.array(zod.string()),
+  liveUrl: zod.string().nullable(),
+  repoUrl: zod.string().nullable(),
+  imageUrl: zod.string().nullable(),
+  featured: zod.boolean(),
+});
+
+/**
+ * @summary Admin - delete a project
+ */
+export const AdminDeleteProjectParams = zod.object({
+  id: zod.coerce.number(),
+});
+
+export const AdminDeleteProjectHeader = zod.object({
+  "x-admin-password": zod.string(),
+});
+
+/**
+ * @summary Admin - list all contact messages
+ */
+export const AdminListContactsHeader = zod.object({
+  "x-admin-password": zod.string(),
+});
+
+export const AdminListContactsResponseItem = zod.object({
+  id: zod.number(),
+  name: zod.string(),
+  email: zod.string(),
+  message: zod.string(),
+  createdAt: zod.coerce.date(),
+});
+export const AdminListContactsResponse = zod.array(
+  AdminListContactsResponseItem,
+);

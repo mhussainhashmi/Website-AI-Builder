@@ -23,6 +23,16 @@ export interface ContactSubmission {
   createdAt: string;
 }
 
+export interface ProjectBody {
+  title: string;
+  description: string;
+  tags: string[];
+  liveUrl?: string | null;
+  repoUrl?: string | null;
+  imageUrl?: string | null;
+  featured: boolean;
+}
+
 export interface Project {
   id: number;
   title: string;
