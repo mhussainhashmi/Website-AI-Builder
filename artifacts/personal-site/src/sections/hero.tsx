@@ -31,11 +31,11 @@ function CursorGlow() {
     <motion.div
       className="pointer-events-none fixed top-0 left-0 z-0 rounded-full"
       style={{
-        x: useTransform(springX, v => v - 300),
-        y: useTransform(springY, v => v - 300),
-        width: 600,
-        height: 600,
-        background: 'radial-gradient(circle, hsl(24 95% 53% / 0.08) 0%, transparent 70%)',
+        x: useTransform(springX, v => v - 400),
+        y: useTransform(springY, v => v - 400),
+        width: 800,
+        height: 800,
+        background: 'radial-gradient(circle, hsl(24 95% 53% / 0.22) 0%, hsl(24 95% 53% / 0.08) 40%, transparent 70%)',
       }}
     />
   );
@@ -79,8 +79,8 @@ function ParallaxBlobs({ mouseX, mouseY }: { mouseX: number; mouseY: number }) {
   return (
     <>
       <motion.div
-        className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[120px] mix-blend-screen pointer-events-none"
-        style={{ background: 'hsl(24 95% 53% / 0.18)' }}
+        className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-[100px] mix-blend-screen pointer-events-none"
+        style={{ background: 'hsl(24 95% 53% / 0.35)' }}
         animate={{
           x: mouseX * -18,
           y: mouseY * -18,
@@ -281,16 +281,17 @@ export function Hero() {
 
           <motion.div
             variants={stagger.item}
-            className="mt-20 flex items-center gap-2 text-sm text-muted-foreground"
+            className="mt-16 flex flex-col items-start gap-2"
           >
-            <motion.div
-              animate={{ y: [0, 6, 0] }}
-              transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-              className="flex flex-col items-center gap-1 opacity-50"
-            >
-              <div className="w-[1px] h-10 bg-current rounded-full" />
-              <span className="text-xs tracking-widest uppercase">scroll</span>
-            </motion.div>
+            <span className="text-xs tracking-[0.2em] uppercase text-muted-foreground/50 font-medium">Scroll</span>
+            {/* Classic scroll-mouse icon */}
+            <div className="w-6 h-10 rounded-full border-2 border-muted-foreground/30 flex items-start justify-center pt-2">
+              <motion.div
+                className="w-1 h-2 rounded-full bg-primary"
+                animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }}
+                transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}
+              />
+            </div>
           </motion.div>
         </motion.div>
       </div>
