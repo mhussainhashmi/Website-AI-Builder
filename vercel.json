@@ -1,1 +1,6 @@
 
+{
+  "buildCommand": "pnpm --filter @workspace/personal-site build",
+  "outputDirectory": "artifacts/personal-site/dist",
+  "installCommand": "pnpm install --filter @workspace/personal-site"
+}
