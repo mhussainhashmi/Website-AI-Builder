@@ -4,6 +4,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/theme-provider";
 import { LoadingScreen } from "@/components/loading-screen";
+import { Analytics } from "@vercel/analytics/react";
 import NotFound from "@/pages/not-found";
 import Home from "@/pages/home";
 import AdminPage from "@/pages/admin";
@@ -30,6 +31,7 @@ function App() {
             <Router />
           </WouterRouter>
           <Toaster />
+          <Analytics />
         </TooltipProvider>
       </QueryClientProvider>
     </ThemeProvider>
